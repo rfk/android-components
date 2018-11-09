@@ -49,6 +49,7 @@ dependencies {
 
     api Deps.mozilla_fxa
 
+    implementation project(':support-base')
     implementation Deps.kotlin_stdlib
     implementation Deps.jna
     implementation Deps.kotlin_coroutines

@@ -12,6 +12,8 @@ import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.plus
 import org.mozilla.fxaclient.internal.FirefoxAccount as InternalFxAcct
 
+import mozilla.components.support.base.log.logger.Logger
+
 /**
  * FirefoxAccount represents the authentication state of a client.
  */
@@ -102,6 +104,19 @@ class FirefoxAccount internal constructor(private val inner: InternalFxAcct) : A
     fun getCachedOAuthToken(scopes: Array<String>): Deferred<OAuthInfo?> {
         return scope.async {
             inner.getCachedOAuthToken(scopes)?.let { OAuthInfo.fromInternal(it) }
+        }
+    }
+
+    /**
+     * Sets the device name for this client.
+     *
+     * This is a garbage abstraction and we should do better; just want to get
+     * something up and running for now...
+     */
+
+    fun setDeviceName(name: String): Deferred<Unit> {
+        return scope.async {
+            Logger.info("Setting remote device name to: ${name}")
         }
     }
 

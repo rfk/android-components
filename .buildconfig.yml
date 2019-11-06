@@ -284,6 +284,10 @@ projects:
     path: components/support/rustlog
     description: 'A bridge allowing log messages from Rust code to be sent to the log system in support-base'
     publish: true
+  support-rustglean:
+    path: components/support/rustglean
+    description: 'A bridge allowing glean telemetry from Rust code to be sent to the glean system in service-glean'
+    publish: true
   support-rusthttp:
     path: components/support/rusthttp
     description: 'A bridge allowing configuration of Rust HTTP requests without directly depending on the application services library'

@@ -9,6 +9,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import mozilla.components.service.experiments.Experiments
+import mozilla.appservices.demothing.DemoThing
 import org.mozilla.samples.glean.GleanMetrics.Test
 import org.mozilla.samples.glean.GleanMetrics.BrowserEngagement
 import org.mozilla.samples.glean.library.SamplesGleanLibrary
@@ -21,17 +22,12 @@ open class MainActivity : AppCompatActivity() {
 
         // Generate an event when user clicks on the button.
         buttonGenerateData.setOnClickListener {
-            // These first two actions, adding to the string list and incrementing the counter are
-            // tied to a user lifetime metric which is persistent from launch to launch.
-
-            // Adds the EditText's text content as a new string in the string list metric from the
-            // metrics.yaml file.
-            Test.stringList.add(etStringListInput.text.toString())
-            // Clear current text to help indicate something happened
-            etStringListInput.setText("")
-
             // Increments the test_counter metric from the metrics.yaml file.
             Test.counter.add()
+
+            // Do the thing.
+            // This will emit some metrics from inside the component.
+            DemoThing().doTheThing(9000)
 
             // This is referencing the event ping named 'click' from the metrics.yaml file. In
             // order to illustrate adding extra information to the event, it is also adding to the
@@ -50,22 +46,5 @@ open class MainActivity : AppCompatActivity() {
         // Update some metrics from a third-party library
         SamplesGleanLibrary.recordMetric()
         SamplesGleanLibrary.recordExperiment()
-
-        // Handle logic for the "test-color" experiment on click.
-        buttonCheckExperiments.setOnClickListener {
-            textViewExperimentStatus.setBackgroundColor(Color.WHITE)
-            textViewExperimentStatus.text = getString(R.string.experiment_not_active)
-
-            Experiments.withExperiment("test-color") {
-                val color = when (it) {
-                    "blue" -> Color.BLUE
-                    "red" -> Color.RED
-                    "control" -> Color.DKGRAY
-                    else -> Color.WHITE
-                }
-                textViewExperimentStatus.setBackgroundColor(color)
-                textViewExperimentStatus.text = getString(R.string.experiment_active_branch, it)
-            }
-        }
     }
 }

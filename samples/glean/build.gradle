@@ -38,6 +38,10 @@ dependencies {
     implementation project(':service-glean')
     implementation project(':service-experiments')
     implementation project(':support-base')
+    implementation project(':support-rustlog')
+    implementation project(':support-rustglean')
+
+    implementation Dependencies.mozilla_demo_thing
 
     implementation Dependencies.kotlin_stdlib
     implementation Dependencies.kotlin_coroutines

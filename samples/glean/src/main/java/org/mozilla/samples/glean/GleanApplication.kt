@@ -9,6 +9,9 @@ import mozilla.components.service.glean.Glean
 import mozilla.components.service.experiments.Experiments
 import mozilla.components.support.base.log.Log
 import mozilla.components.support.base.log.sink.AndroidLogSink
+import mozilla.appservices.Megazord
+import mozilla.components.support.rustlog.RustLog
+import mozilla.components.support.rustglean.RustGlean
 import org.mozilla.samples.glean.GleanMetrics.Basic
 import org.mozilla.samples.glean.GleanMetrics.Test
 import org.mozilla.samples.glean.GleanMetrics.Custom
@@ -32,6 +35,10 @@ class GleanApplication : Application() {
         // Initialize the Experiments library right afterwards. Experiments can
         // not be activated before this, so it's important to do this early.
         Experiments.initialize(applicationContext)
+
+        Megazord.init();
+        RustLog.enable();
+        RustGlean.enable();
 
         Test.timespan.start()
 

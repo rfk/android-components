@@ -27,9 +27,9 @@ object Versions {
     const val disklrucache = "2.0.2"
     const val leakcanary = "1.6.3"
 
-    const val mozilla_appservices = "0.42.2"
+    const val mozilla_appservices = "0.42.4"
 
-    const val mozilla_glean = "19.1.0"
+    const val mozilla_glean = "20.0.0-SNAPSHOT" // "19.1.0"
 
     const val material = "1.0.0"
 
@@ -129,12 +129,14 @@ object Dependencies {
     const val mozilla_sync_manager = "org.mozilla.appservices:syncmanager:${Versions.mozilla_appservices}"
 
     const val mozilla_push = "org.mozilla.appservices:push:${Versions.mozilla_appservices}"
+    const val mozilla_demo_thing = "org.mozilla.appservices:demothing:${Versions.mozilla_appservices}"
 
     const val mozilla_httpconfig = "org.mozilla.appservices:httpconfig:${Versions.mozilla_appservices}"
     const val mozilla_full_megazord = "org.mozilla.appservices:full-megazord:${Versions.mozilla_appservices}"
     const val mozilla_full_megazord_forUnitTests = "org.mozilla.appservices:full-megazord-forUnitTests:${Versions.mozilla_appservices}"
 
     const val mozilla_rustlog = "org.mozilla.appservices:rustlog:${Versions.mozilla_appservices}"
+    const val mozilla_rcglean = "org.mozilla.appservices:rcglean:${Versions.mozilla_appservices}"
     const val mozilla_sync15 = "org.mozilla.appservices:sync15:${Versions.mozilla_appservices}"
 
     const val thirdparty_okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"

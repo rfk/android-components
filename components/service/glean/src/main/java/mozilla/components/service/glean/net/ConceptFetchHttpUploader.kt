@@ -48,6 +48,7 @@ class ConceptFetchHttpUploader(
      *         error callers can deal with.
      */
     override fun upload(url: String, data: String, headers: HeadersList): Boolean {
+        logger.debug("UPLOADING PING: ${data}")
         val request = buildRequest(url, data, headers)
 
         return try {

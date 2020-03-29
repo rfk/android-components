@@ -5,7 +5,13 @@
 /*
 Establish communication with native application.
 */
-let port = browser.runtime.connectNative("mozacWebchannel");
+let port;
+try {
+  port = browser.runtime.connectNative("mozacWebchannel");
+  console.log("make native port", port);
+} catch (err) {
+  console.log("Failed to open native port", err)
+}
 
 /*
 Handle messages from native application, dispatch them to FxA via an event.

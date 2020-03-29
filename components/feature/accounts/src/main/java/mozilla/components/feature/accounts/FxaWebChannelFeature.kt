@@ -60,12 +60,15 @@ class FxaWebChannelFeature(
     private val fxaCapabilities: Set<FxaCapability> = emptySet()
 ) : SelectionAwareSessionObserver(sessionManager), LifecycleAwareFeature {
 
+    private val logger = Logger("mozac-fxawebchannel")
+
     @VisibleForTesting
     // This is an internal var to make it mutable for unit testing purposes only
     internal var extensionController = WebExtensionController(WEB_CHANNEL_EXTENSION_ID, WEB_CHANNEL_EXTENSION_URL)
 
     override fun start() {
         // Runs observeSelected (if we're not in a custom tab) or observeFixed (if we are).
+        logger.info("webchannel handler start")
         observeIdOrSelected(customTabSessionId)
 
         sessionManager.runWithSessionIdOrSelected(customTabSessionId) { session ->
@@ -76,10 +79,12 @@ class FxaWebChannelFeature(
     }
 
     override fun onSessionAdded(session: Session) {
+        logger.info("webchannel handler session added")
         registerFxaContentMessageHandler(session)
     }
 
     override fun onSessionRemoved(session: Session) {
+        logger.info("webchannel handler session removed")
         extensionController.disconnectPort(sessionManager.getEngineSession(session))
     }
 
@@ -107,6 +112,7 @@ class FxaWebChannelFeature(
     ) : MessageHandler {
         @SuppressWarnings("ComplexMethod")
         override fun onPortMessage(message: Any, port: Port) {
+            logger.info("webchannel message was received: ${message}.")
             if (!isCommunicationAllowed(serverConfig, port)) {
                 logger.error("Communication disallowed, ignoring WebChannel message.")
                 return
@@ -151,6 +157,7 @@ class FxaWebChannelFeature(
     }
 
     private fun registerFxaContentMessageHandler(session: Session) {
+        logger.info("webchannel handler regier message handler")
         val engineSession = sessionManager.getOrCreateEngineSession(session)
         val messageHandler = WebChannelViewContentMessageHandler(accountManager, serverConfig, fxaCapabilities)
         extensionController.registerContentMessageHandler(engineSession, messageHandler)

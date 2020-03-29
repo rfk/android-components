@@ -70,6 +70,7 @@ class WebExtensionController(
     ) {
         synchronized(this) {
             registerContentMessageHandler = {
+                logger.debug("Installed extension content message handler: ${it.id}")
                 it.registerContentMessageHandler(engineSession, name, messageHandler)
             }
 
